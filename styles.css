@@ -1,0 +1,19 @@
+#gameBoardDiv {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(3, 150px);
+    grid-template-rows: repeat(3, 150px);
+  }
+
+#gameBoardDiv > div {
+    padding: 10px;
+    background-color: #EFCB68;
+    border-radius: 5px;
+    display: grid;
+    place-items: center;
+}  
+
+h1 {
+    color: hotpink;
+}
+  
