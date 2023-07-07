@@ -7,7 +7,6 @@ function setup() {
 }
 
 //gameBoard Module
-
 const Board = (() => {
     
     let gameBoard = [['','',''],
@@ -42,18 +41,33 @@ const Board = (() => {
         for(let i=0;i<tiles.length;i++){
             tiles[i].addEventListener("click", Play.play)
         }
-    }   
+
+        let resetButton = document.getElementById("reset-button");
+        resetButton.addEventListener("click", reset);
+    }
+    
+    const reset = () =>{
+
+        gameBoard = [['','',''],
+                    ['','',''],
+                    ['','','']];
+        addBoard();
+
+
+
+    }
 
     return {
         addBoard,
         updateArray,
         gameBoard,
         addListeners,
-        tiles
+        tiles,
+        //reset
     };
 })();
 
-// Play the game Flow
+// the game flow Module
 
 const Play = (() => {
      let marker0 = '0';
@@ -64,7 +78,6 @@ const Play = (() => {
 
      const play = (event) => {
         let val = event.srcElement.innerHTML;
-        // console.log(event.srcElement.innerHTML)
         if(turn===0 && val===''){
             event.srcElement.innerHTML='0';
             turn++

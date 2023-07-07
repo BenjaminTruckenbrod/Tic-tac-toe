@@ -3,6 +3,7 @@
     grid-gap: 10px;
     grid-template-columns: repeat(3, 150px);
     grid-template-rows: repeat(3, 150px);
+    break-inside:avoid;
   }
 
 #gameBoardDiv > div {
@@ -11,9 +12,20 @@
     border-radius: 5px;
     display: grid;
     place-items: center;
+    /* break-inside:avoid; */
 }  
 
 h1 {
-    color: hotpink;
+    color: black;
+    text-align: center;
+}
+
+.container{
+    display: flex;
+}
+
+.player{
+    width: 100px;
+    margin: 10px;
 }
   
