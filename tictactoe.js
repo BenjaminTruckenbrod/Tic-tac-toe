@@ -44,17 +44,6 @@ const Board = (() => {
         }
     }   
 
-    // const play = (event) => {
-
-    //     let val = event.srcElement.innerHTML;
-    //     console.log(event.srcElement.innerHTML)
-
-    //     if(val===''){ //&& player === 1
-    //         event.srcElement.innerHTML='X'
-    //         updateArray();
-    //         console.log(gameBoard)
-    //     }
-    // };
     return {
         addBoard,
         updateArray,
@@ -64,17 +53,18 @@ const Board = (() => {
     };
 })();
 
-// gameModule
+// Play the game Flow
 
 const Play = (() => {
      let marker0 = '0';
      let marker1= 'X';
      let turn = 0;
      let tiles = Board.tiles
+     let b = Board.gameBoard
 
      const play = (event) => {
         let val = event.srcElement.innerHTML;
-        console.log(event.srcElement.innerHTML)
+        // console.log(event.srcElement.innerHTML)
         if(turn===0 && val===''){
             event.srcElement.innerHTML='0';
             turn++
@@ -83,54 +73,121 @@ const Play = (() => {
         else if(turn===1 && val===''){
             event.srcElement.innerHTML='X';
             turn--;
+            updateArray()
         }
         else{
             console.log("you can't go here")
         }
 
         checkWin();
+        checkTie();
     };
 
     const updateArray = () => {
         let x = 0;
         for(let i=0; i<3; i++){
             for (let j=0; j<3; j++){
-                Board.gameBoard[i][j] = tiles[x].innerHTML;
+                b[i][j] = tiles[x].innerHTML;
                 x++
             }
         }
 
     }
 
-    const checkWin = (gameBoard) => {
+    const checkWin = () => {
 
         let x = ''
-        let y = ''
+        // let y = ''
         let counter = 0;
-    
+
+        for(let i=0; i<3; i++){
+            let j=0
+            let x=b[i][j]
+            if(x=="0" || x=='X'){
+                if(x==b[i][j+1] && x==b[i][j+2]){
+                    console.log("Winner")
+                    break;
+                }
+            }
+
+        }
+
+        for(let j=0; j<3; j++){
+            let i=0
+            let x=b[i][j]
+            if(x=="0" || x=='X'){
+                if(x==b[i+1][j] && x==b[i+2][j]){
+                    console.log("Winner")
+                    break;
+                }
+            }
+
+        }
+        for(let q=0; q<1; q++){
+        let i=0
+        let j=0
+        let x=b[i][j]
+        if(x=="0" || x=='X'){
+
+            if (x==b[i+1][j+1] && x==b[i+2][j+2]){
+                console.log("Winner")
+            }
+
+        }
+        }
+
+        for(let q=0; q<1; q++){
+            let i=0
+            let j=2
+            let x=b[i][j]
+        if(x=="0" || x=='X'){
+            if (x==b[i+1][j-1] && x==b[i+2][j-2]){
+                console.log("Winner")
+            }
+
+        }
+        }
+
+
+
+        
+        // loop1:
+        //     for(let i=0; i<3; i++){
+        // loop2:    
+        //         for(let j=0; j<3; j++){
+        //             let x=b[i][j]             
+        //             if(x=="0" || x=='X'){
+        //                 if(x==b[i][j+1] && x==b[i][j+2]){
+        //                     console.log("Winner")
+        //                     break;
+        //                 }
+        //                 if(x==b[i+1][j] && x==b[i+2][j]){
+        //                     console.log("Winner")
+        //                     break loop1;
+        //                 }
+
+        //             }
+        //         }
+        // }
+
+
+        
+    }
+
+    const checkTie = () => {
+        counter = 0
+
         for(let i=0; i<3; i++){
             for (let j=0; j<3; j++){
-                x = gameBoard[i][j]
-                y = gameBoard[i][j+1]
-    
-                if(x!=y){
-                    counter=0
-                }
-                if(x==y && counter==0){
-                    counter++;
-                }
-                if(x==y && counter==1){
-                    console.log("Winner")
-                    //break
+                if (b[i][j]!==''){
+                    counter++
                 }
             }
         }
-        if (gameBoard[0][0]== gameBoard[0][1]== gameBoard[0][2]){
-            console.log("Win")
+        if(counter==9){
+            console.log("it's a tie")
         }
-        if (gameBoard[0][0]== gameBoard[0][1]== gameBoard[0][2]){
-            console.log("Win")
-        }
+
     }
 
 
