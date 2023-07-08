@@ -222,18 +222,3 @@ const Play = (() => {
     return {play, turnReset}
 }
 )();
-
-// Player Factory creating two players
-
-// const playerFactory = (name, marker) => {
-//     return {name,marker}
-// }
-
-// const player1 = playerFactory('Player 0', '0')
-// const player2 = playerFactory('Player 1', 'X')
-
-
-// driver
-// gameBoard.addBoard();
-// game.addListeners();
-
