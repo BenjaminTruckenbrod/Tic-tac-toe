@@ -51,10 +51,17 @@ const Board = (() => {
         gameBoard = [['','',''],
                     ['','',''],
                     ['','','']];
-        addBoard();
+        Play.turnReset();
+        let displayWin= document.getElementById("winnerDisplayId")
+        if (displayWin!=null){
+        document.getElementById("winnerDisplayId").remove();
+        }
 
-
-
+        let displayTie= document.getElementById("tieDisplayId")
+        if (displayTie!=null){
+        document.getElementById("tieDisplayId").remove();
+        }
+        setup();
     }
 
     return {
@@ -92,8 +99,9 @@ const Play = (() => {
             console.log("you can't go here")
         }
 
-        checkWin();
+        if(!checkWin()){
         checkTie();
+        }
     };
 
     const updateArray = () => {
@@ -107,8 +115,36 @@ const Play = (() => {
 
     }
 
-    const checkWin = () => {
+    const removeListeners = () => {
+        for(let i=0;i<tiles.length;i++){
+            tiles[i].removeEventListener("click", Play.play)
+        }
+    }
 
+    const displayWin = () => {
+        let winnerDisplay = document.createElement("div");
+        winnerDisplay.id=('winnerDisplayId');
+        winnerDisplay.className=('alert');
+        if(turn==1){
+            winnerDisplay.innerHTML=("Player 1 Wins!");
+        }
+        if(turn==0){
+            winnerDisplay.innerHTML=("Player 2 Wins!");
+        }
+        document.body.appendChild(winnerDisplay);
+        removeListeners();
+        }
+
+    const displayTie = () => {
+        let tieDisplay = document.createElement("div");
+        tieDisplay.id=('tieDisplayId');
+        tieDisplay.className=('alert');
+        tieDisplay.innerHTML=("Its a Tie!");
+        document.body.appendChild(tieDisplay);
+        removeListeners();
+            }
+
+    const checkWin = () => {
         let x = ''
         // let y = ''
         let counter = 0;
@@ -118,8 +154,8 @@ const Play = (() => {
             let x=b[i][j]
             if(x=="0" || x=='X'){
                 if(x==b[i][j+1] && x==b[i][j+2]){
-                    console.log("Winner")
-                    break;
+                    displayWin();
+                    return true;
                 }
             }
 
@@ -130,61 +166,37 @@ const Play = (() => {
             let x=b[i][j]
             if(x=="0" || x=='X'){
                 if(x==b[i+1][j] && x==b[i+2][j]){
-                    console.log("Winner")
-                    break;
+                    displayWin();
+                    return true;
                 }
             }
 
         }
         for(let q=0; q<1; q++){
-        let i=0
-        let j=0
-        let x=b[i][j]
-        if(x=="0" || x=='X'){
+            let i=0
+            let j=0
+            let x=b[i][j]
+            if(x=="0" || x=='X'){
 
-            if (x==b[i+1][j+1] && x==b[i+2][j+2]){
-                console.log("Winner")
+                if (x==b[i+1][j+1] && x==b[i+2][j+2]){
+                    displayWin();
+                    return true;
+                }
             }
-
-        }
         }
 
         for(let q=0; q<1; q++){
             let i=0
             let j=2
             let x=b[i][j]
-        if(x=="0" || x=='X'){
-            if (x==b[i+1][j-1] && x==b[i+2][j-2]){
-                console.log("Winner")
+            if(x=="0" || x=='X'){
+                if (x==b[i+1][j-1] && x==b[i+2][j-2]){
+                    displayWin();
+                    return true;
             }
 
+            }   
         }
-        }
-
-
-
-        
-        // loop1:
-        //     for(let i=0; i<3; i++){
-        // loop2:    
-        //         for(let j=0; j<3; j++){
-        //             let x=b[i][j]             
-        //             if(x=="0" || x=='X'){
-        //                 if(x==b[i][j+1] && x==b[i][j+2]){
-        //                     console.log("Winner")
-        //                     break;
-        //                 }
-        //                 if(x==b[i+1][j] && x==b[i+2][j]){
-        //                     console.log("Winner")
-        //                     break loop1;
-        //                 }
-
-        //             }
-        //         }
-        // }
-
-
-        
     }
 
     const checkTie = () => {
@@ -198,13 +210,16 @@ const Play = (() => {
             }
         }
         if(counter==9){
+            displayTie();
             console.log("it's a tie")
         }
 
     }
 
+    const turnReset = () => turn = 0;
 
-    return {play}
+
+    return {play, turnReset}
 }
 )();
 

@@ -8,11 +8,10 @@
 
 #gameBoardDiv > div {
     padding: 10px;
-    background-color: #EFCB68;
+    background-color: #00BFB3;
     border-radius: 5px;
     display: grid;
     place-items: center;
-    /* break-inside:avoid; */
 }  
 
 h1 {
@@ -20,12 +19,51 @@ h1 {
     text-align: center;
 }
 
-.container{
+.column-container{
     display: flex;
+    justify-content: center;
 }
 
 .player{
     width: 100px;
     margin: 10px;
 }
-  
+
+#winnerDisplayId{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #023436;
+    /* height: 5rem; */
+    width: 10rem;
+    text-align: center;
+    padding: 20px 0;
+    color: white;
+}
+
+.center-container{
+    display: flex;
+    justify-content: center;
+}
+
+.button-container{
+    display: flex;
+    justify-content: center;
+    float:center;
+    flex: 1;
+    margin-top: 20px;
+}
+
+.alert{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #023436;
+    /* height: 5rem; */
+    width: 10rem;
+    text-align: center;
+    padding: 20px 0;
+    color: white;
+}
